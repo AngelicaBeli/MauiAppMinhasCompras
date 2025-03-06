@@ -1,12 +1,28 @@
-﻿namespace MauiAppMinhasCompras
+﻿using MauiAppMinhasCompras.Helpers;
+
+namespace MauiAppMinhasCompras
 {
     public partial class App : Application
     {
-        public App()
+        static SQLiteDatabaseHelper _db;
+       
+        public static SQLiteDatabaseHelper Db
         {
-            InitializeComponent();
+            get
+            {
+                if (_db == null)
+                {
+                    string path = Path.Combine(
+                        Environment.GetFolderPath(
+                            Environment.SpecialFolder.LocalApplicationData),
+                        "banco_sqlite_compras.db3");
 
-            MainPage = new AppShell();
+                    _db = new SQLiteDatabaseHelper(path);
+                }
+
+                return _db;
+            }
         }
     }
 }
+
